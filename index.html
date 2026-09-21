@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Как запустить Whisper локально — пошаговая инструкция</title>
+<title>Как запустить модель Whisper — готовые приложения с графическим интерфейсом</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -15,22 +15,22 @@ body {
   line-height: 1.6;
   padding: 0;
 }
-.container { max-width: 800px; margin: 0 auto; padding: 0 20px; }
+.container { max-width: 820px; margin: 0 auto; padding: 0 20px; }
 header {
   background: linear-gradient(135deg, #1a1a2e 0%, #2d3561 100%);
   color: white;
-  padding: 60px 0 50px;
+  padding: 56px 0 46px;
   text-align: center;
 }
-header h1 { font-size: 2em; margin-bottom: 10px; }
-header p { font-size: 1.1em; opacity: 0.85; max-width: 600px; margin: 0 auto; }
-section { padding: 40px 0; border-bottom: 1px solid #e8e6df; }
+header h1 { font-size: 2em; margin-bottom: 12px; }
+header p { font-size: 1.1em; opacity: 0.85; max-width: 640px; margin: 0 auto; }
+section { padding: 36px 0; border-bottom: 1px solid #e8e6df; }
 section:last-of-type { border-bottom: none; }
-h2 { font-size: 1.5em; margin-bottom: 20px; color: #1a1a2e; }
-h3 { font-size: 1.15em; margin: 20px 0 10px; color: #2d3561; }
+h2 { font-size: 1.4em; margin-bottom: 16px; color: #1a1a2e; }
+h3 { font-size: 1.1em; margin: 18px 0 8px; color: #2d3561; }
 p { margin-bottom: 12px; }
-ul, ol { margin: 10px 0 20px 20px; }
-li { margin-bottom: 6px; }
+ul, ol { margin: 8px 0 18px 20px; }
+li { margin-bottom: 5px; }
 code {
   background: #e8e6df;
   padding: 2px 6px;
@@ -40,29 +40,30 @@ code {
 pre {
   background: #1a1a2e;
   color: #e8e6df;
-  padding: 16px 20px;
+  padding: 14px 18px;
   border-radius: 8px;
   overflow-x: auto;
-  margin: 15px 0;
+  margin: 12px 0;
   font-size: 0.9em;
   line-height: 1.5;
 }
 .card {
   background: white;
   border-radius: 12px;
-  padding: 25px;
-  margin: 20px 0;
+  padding: 22px;
+  margin: 16px 0;
   box-shadow: 0 2px 8px rgba(0,0,0,0.06);
 }
 .card.blue { border-left: 4px solid #3b82f6; }
 .card.green { border-left: 4px solid #10b981; }
 .card.amber { border-left: 4px solid #f59e0b; }
 .card.purple { border-left: 4px solid #8b5cf6; }
+.card.teal { border-left: 4px solid #14b8a6; }
 table {
   width: 100%;
   border-collapse: collapse;
-  margin: 15px 0;
-  font-size: 0.95em;
+  margin: 12px 0;
+  font-size: 0.93em;
 }
 th, td {
   padding: 10px 14px;
@@ -83,47 +84,41 @@ tr:hover td { background: #faf9f5; }
 .badge.blue { background: #dbeafe; color: #1e40af; }
 .badge.amber { background: #fef3c7; color: #92400e; }
 .badge.purple { background: #ede9fe; color: #5b21b6; }
-.step {
-  display: flex;
-  gap: 15px;
-  margin: 15px 0;
-  align-items: flex-start;
-}
-.step-num {
-  flex-shrink: 0;
-  width: 32px;
-  height: 32px;
-  background: #1a1a2e;
-  color: white;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 700;
-  font-size: 0.9em;
-}
-.step-content { flex: 1; }
-.step-content p { margin-bottom: 4px; }
-.checklist li { list-style: none; position: relative; padding-left: 28px; }
-.checklist li::before { content: "\2713"; position: absolute; left: 0; color: #10b981; font-weight: bold; }
+.badge.teal { background: #ccfbf1; color: #0f5e4a; }
 .note {
   background: #fef3c7;
   border-radius: 8px;
-  padding: 15px 20px;
-  margin: 15px 0;
+  padding: 14px 18px;
+  margin: 14px 0;
   font-size: 0.95em;
 }
 .note strong { color: #92400e; }
+.note.green { background: #d1fae5; }
+.note.green strong { color: #065f46; }
 footer {
   text-align: center;
-  padding: 30px;
+  padding: 28px;
   color: #888;
   font-size: 0.9em;
 }
-@media (max-width: 600px) {
+.app-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 16px 0;
+}
+.app-card {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  border: 1px solid #e8e6df;
+}
+.app-card h3 { margin-top: 0; }
+.icon { font-size: 1.4em; margin-bottom: 6px; display: block; }
+@media (max-width: 640px) {
+  .app-grid { grid-template-columns: 1fr; }
   header h1 { font-size: 1.5em; }
-  .step { flex-direction: column; gap: 5px; }
-  table { font-size: 0.85em; }
 }
 </style>
 </head>
@@ -131,255 +126,197 @@ footer {
 
 <header>
   <div class="container">
-    <h1>Как запустить Whisper локально</h1>
-    <p>Превращаем аудио и видео в текст на вашем компьютере — бесплатно, без интернета, без отправки данных в облако</p>
+    <h1>Как запустить Whisper на своём компьютере</h1>
+    <p>Вы скачали модель с Hugging Face (файлы .bin, .ggml) — теперь рассказываем, как ей воспользоваться. Только готовые программы с графическим интерфейсом, никакой командной строки.</p>
   </div>
 </header>
 
 <div class="container">
 
 <section>
-  <h2>Что такое Whisper и зачем он вам</h2>
-  <p><strong>Whisper</strong> — это нейросеть от OpenAI (создатели ChatGPT), которая превращает речь в текст. Она понимает 99 языков, включая русский, украинский, английский.</p>
-  <p>Вы можете надиктовать заметку, расшифровать запись совещания, перевести интервью в текст — и всё это на своём компьютере. Бесплатно. Безлимитно. Конфиденциально.</p>
+  <h2>Что у вас уже есть (ситуация)</h2>
+  <p>Скорее всего, вы скачали одну из этих моделей с Hugging Face:</p>
+  <ul>
+    <li><strong>Whisper</strong> от OpenAI (файлы .bin — tiny, base, small, medium, large-v3, turbo)</li>
+    <li><strong>Parakeet</strong> от NVIDIA (.bin)</li>
+    <li><strong>Whisper.cpp</strong> модели в формате GGML / GGUF (.bin)</li>
+  </ul>
 
-  <div class="card green">
-    <strong>Почему это удобно для руководителя:</strong>
-    <ul style="margin: 10px 0 0 20px;">
-      <li>Надиктовать письмо или поручение — вместо того чтобы печатать</li>
-      <li>Расшифровать встречу за минуту вместо часа стенографирования</li>
-      <li>Не отправлять записи совещаний в чужие облачные сервисы</li>
-      <li>Сэкономить на подписках — Whisper полностью бесплатный</li>
-    </ul>
+  <div class="note green">
+    <strong>Хорошая новость:</strong> эти модели — готовый «движок» для распознавания речи. Вопрос только в том, в какой программе этот движок запустить. Ниже — все подходящие варианты, от самых простых до продвинутых.
   </div>
 </section>
 
 <section>
-  <h2>Выберите свой путь</h2>
-  <p>Есть два способа запустить Whisper. Для руководителя без технического опыта мы рекомендуем <strong>Способ 1</strong> — готовые приложения.</p>
+  <h2>Программы, которые работают с моделями Whisper</h2>
+  <p>Все программы ниже <strong>не требуют командной строки</strong>. Установили — выбрали модель — получили текст.</p>
 
-  <table>
-    <thead>
-      <tr>
-        <th>Ваш сценарий</th>
-        <th>Рекомендуемый способ</th>
-        <th>Сложность</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Хочу расшифровать файл прямо сейчас</td>
-        <td><strong>Способ 1</strong> — готовые приложения</td>
-        <td><span class="badge green">Просто</span></td>
-      </tr>
-      <tr>
-        <td>Хочу диктовать текст в любую программу</td>
-        <td><strong>Способ 1</strong> — приложения с диктовкой</td>
-        <td><span class="badge green">Просто</span></td>
-      </tr>
-      <tr>
-        <td>Хочу разобраться и использовать бесплатно без ограничений</td>
-        <td><strong>Способ 2</strong> — командная строка</td>
-        <td><span class="badge amber">Средне</span></td>
-      </tr>
-    </tbody>
-  </table>
-</section>
+  <div class="app-grid">
 
-<section>
-  <h2>Способ 1. Готовые приложения (никаких команд)</h2>
-  <p>Самый простой вариант. Установили — открыли — работает. Всё происходит на вашем компьютере, данные никуда не уходят.</p>
+    <div class="app-card">
+      <span class="icon">🔵</span>
+      <h3>MacWhisper</h3>
+      <p><span class="badge green">macOS</span> <span class="badge blue">Новичок</span></p>
+      <p>Самое популярное приложение для Mac. Красивый интерфейс: перетащили аудиофайл — получили текст.</p>
+      <p><strong>Цена:</strong> бесплатно (базовые модели) / €64 Pro (один раз)</p>
+      <p><strong>Как использовать свою модель:</strong> MacWhisper сам скачивает модели при первом запуске. Можно добавить свою — скопировать .bin в папку моделей (~/Library/Application Support/MacWhisper/Models).</p>
+      <p><a href="https://macwhisper.com" target="_blank">macwhisper.com</a></p>
+    </div>
 
-  <h3>На Mac</h3>
-  <div class="card blue">
-    <p><strong>MacWhisper</strong> — самое популярное приложение. <br>Цена: бесплатно (базовые модели) или 64 EUR (Pro, один раз на всю жизнь).</p>
-    <p><strong>Как пользоваться:</strong></p>
-    <ol>
-      <li>Скачайте с macwhisper.com</li>
-      <li>Откройте приложение, нажмите Download model (скачайте модель, одну из списка)</li>
-      <li>Перетащите аудиофайл в окно — через несколько секунд текст готов</li>
-      <li>Можно также вставить ссылку на YouTube</li>
-    </ol>
-    <p>На Mac App Store — под названием Whisper Transcription.</p>
-  </div>
+    <div class="app-card">
+      <span class="icon">🟢</span>
+      <h3>Whisper Desktop</h3>
+      <p><span class="badge green">Windows</span> <span class="badge blue">Новичок</span></p>
+      <p>Самая простая программа для Windows. Скачали ZIP, распаковали, запустили .exe — и всё.</p>
+      <p><strong>Цена:</strong> бесплатно</p>
+      <p><strong>Как использовать свою модель:</strong> При первом запуске программа предлагает скачать модель. Если у вас уже есть файл .bin с Hugging Face — положите его в папку models рядом с WhisperDesktop.exe и выберите его в меню.</p>
+      <p><a href="https://github.com/Const-me/Whisper" target="_blank">GitHub Const-me/Whisper</a></p>
+    </div>
 
-  <div class="card blue">
-    <p><strong>Whisper Notes</strong> — ещё один вариант, работает полностью офлайн.<br>Цена: $7.99 (iPhone) / бесплатный триал на Mac.</p>
-    <p>Поддерживает голосовую диктовку через клавишу Fn.</p>
-  </div>
+    <div class="app-card">
+      <span class="icon">🟣</span>
+      <h3>Buzz</h3>
+      <p><span class="badge green">Windows</span><span class="badge green">macOS</span><span class="badge green">Linux</span> <span class="badge blue">Новичок</span></p>
+      <p>Кроссплатформенная программа с открытым кодом. Перетащили файл, выбрали модель — транскрибация готова. Поддерживает Whisper, Whisper.cpp.</p>
+      <p><strong>Цена:</strong> бесплатно</p>
+      <p><strong>Как использовать свою модель:</strong> В настройках можно указать путь к вашей модели .bin. Buzz сам подхватит файл.</p>
+      <p><a href="https://github.com/chidiwilliams/buzz" target="_blank">GitHub chidiwilliams/buzz</a></p>
+    </div>
 
-  <h3>На Windows</h3>
-  <div class="card blue">
-    <p><strong>StarWhisper</strong> — готовое приложение с установщиком. <br>Скачивайте из Microsoft Store или с starwhisper.ai.</p>
-    <p>Не требует Python и командной строки. Установили — работает.</p>
-  </div>
+    <div class="app-card">
+      <span class="icon">🟠</span>
+      <h3>WhisperUI</h3>
+      <p><span class="badge green">Windows</span> <span class="badge blue">Новичок</span></p>
+      <p>Готовое приложение в Microsoft Store. Красивый интерфейс, поддержка субтитров, экспорт в разные форматы.</p>
+      <p><strong>Цена:</strong> бесплатно / Pro</p>
+      <p><strong>Как использовать свою модель:</strong> WhisperUI сам управляет моделями через встроенный менеджер. Можно импортировать свою.</p>
+      <p><a href="https://apps.microsoft.com/detail/9n3srnm2j6xx" target="_blank">Microsoft Store</a></p>
+    </div>
 
-  <div class="card blue">
-    <p><strong>WhisperDesktop</strong> — совсем простой вариант. <br>Загрузите ZIP-архив с GitHub Const-me/Whisper, распакуйте, запустите .exe.</p>
-    <ol>
-      <li>Скачайте WhisperDesktop.zip из раздела Releases</li>
-      <li>Распакуйте в любую папку</li>
-      <li>Запустите WhisperDesktop.exe</li>
-      <li>При первом запуске выберите модель (рекомендуем ggml-medium.bin, ~1.4 ГБ)</li>
-      <li>Загрузите аудиофайл — через минуту получите текст</li>
-    </ol>
-  </div>
+    <div class="app-card">
+      <span class="icon">🟤</span>
+      <h3>Easy Whisper UI</h3>
+      <p><span class="badge green">Windows</span> <span class="badge amber">Любитель</span></p>
+      <p>Лёгкая графическая обёртка над whisper.cpp с поддержкой Vulkan (работает на любых видеокартах — NVIDIA, AMD, Intel).</p>
+      <p><strong>Цена:</strong> бесплатно</p>
+      <p><strong>Как использовать свою модель:</strong> Укажите путь к GGML-модели через интерфейс. Программа принимает любые .bin-файлы.</p>
+      <p><a href="https://github.com/ztl8702/easy-whisper-ui" target="_blank">GitHub easy-whisper-ui</a></p>
+    </div>
 
-  <div class="card blue">
-    <p><strong>WhisperUI</strong> — в Microsoft Store, красивый интерфейс.</p>
-  </div>
+    <div class="app-card">
+      <span class="icon">🔴</span>
+      <h3>SnailText</h3>
+      <p><span class="badge green">Windows</span><span class="badge green">macOS</span> <span class="badge blue">Новичок</span></p>
+      <p>Готовая программа для диктовки: нажали клавишу — говорите — текст появляется в любом приложении. Всё локально и офлайн.</p>
+      <p><strong>Цена:</strong> бесплатный старт</p>
+      <p><strong>Как использовать свою модель:</strong> SnailText сам подбирает модель под ваше железо и скачивает её. Не нужно возиться с файлами .bin.</p>
+      <p><a href="https://snailtext.app" target="_blank">snailtext.app</a></p>
+    </div>
 
-  <h3>Если нужна диктовка в любые программы</h3>
-  <div class="card purple">
-    <p>Чтобы не просто расшифровывать файлы, а <strong>диктовать текст в Email, Word, мессенджеры</strong>:</p>
-    <ul>
-      <li><strong>OpenWhispr</strong> (Windows, Mac, Linux) — openwhispr.com/ru/download. Бесплатно, с открытым кодом, работает полностью офлайн. Нажмите горячую клавишу, говорите — текст появляется где стоит курсор.</li>
-      <li><strong>Spokenly</strong> (Mac, Windows, Linux, iPhone) — spokenly.app/ru. Локальные модели бесплатно без ограничений. 100+ языков, включая русский.</li>
-      <li><strong>Wispr Flow</strong> (Mac, Windows, iOS, Android) — облачная диктовка с ИИ-очисткой. $15/мес. Работает в любом приложении.</li>
-    </ul>
   </div>
 </section>
 
 <section>
-  <h2>Способ 2. Через командную строку</h2>
-  <p>Если хотите максимальную гибкость — установите Whisper напрямую. Потребуется один раз выполнить несколько простых шагов.</p>
+  <h2>Если нужна диктовка (текст в любые программы)</h2>
+  <p>Не просто расшифровать файл, а говорить — и текст сразу появляется в Email, Word, Telegram:</p>
+
+  <div class="app-grid">
+
+    <div class="app-card">
+      <span class="icon">⚪</span>
+      <h3>OpenWhispr</h3>
+      <p><span class="badge green">Windows</span><span class="badge green">macOS</span><span class="badge green">Linux</span></p>
+      <p>Полностью бесплатно, открытый код. Нажали горячую клавишу — говорите — текст в любом поле. Использует whisper.cpp. Работает офлайн.</p>
+      <p><a href="https://openwhispr.com/ru/download" target="_blank">openwhispr.com/ru/download</a></p>
+    </div>
+
+    <div class="app-card">
+      <span class="icon">🟡</span>
+      <h3>Spokenly</h3>
+      <p><span class="badge green">Windows</span><span class="badge green">macOS</span><span class="badge green">Linux</span><span class="badge green">iOS</span></p>
+      <p>Бесплатные локальные модели Whisper и Parakeet без ограничений. 100+ языков, включая русский. Есть свой ИИ для очистки текста.</p>
+      <p><a href="https://spokenly.app/ru" target="_blank">spokenly.app/ru</a></p>
+    </div>
+
+    <div class="app-card">
+      <span class="icon">🔵</span>
+      <h3>VoiceInk</h3>
+      <p><span class="badge green">macOS</span></p>
+      <p>Диктовка с открытым кодом. Офлайн, локально. От $25 (один раз). Хорошо подходит для русскоязычной диктовки.</p>
+      <p><a href="https://github.com/SomeBeavers/voiceink" target="_blank">GitHub VoiceInk</a></p>
+    </div>
+
+    <div class="app-card">
+      <span class="icon">🔵</span>
+      <h3>Wispr Flow</h3>
+      <p><span class="badge green">Windows</span><span class="badge green">macOS</span><span class="badge green">iOS</span><span class="badge green">Android</span></p>
+      <p>Облачная диктовка с ИИ-очисткой текста. Самая высокая точность на рынке (~98%). $15/мес. Работает в любом приложении.</p>
+      <p><a href="https://wisprflow.ai" target="_blank">wisprflow.ai</a></p>
+    </div>
+
+  </div>
+</section>
+
+<section>
+  <h2>А если у меня модель с Hugging Face? Что делать с файлом .bin?</h2>
 
   <div class="note">
-    <strong>Обратите внимание:</strong> этот способ требует установки нескольких программ и пары команд в терминале. Если не хотите возиться — используйте готовое приложение из Способа 1.
+    <strong>Ситуация:</strong> вы скачали с Hugging Face файл вроде <code>ggml-medium.bin</code> (или <code>large-v3.bin</code>, <code>turbo.bin</code>) — и не знаете, куда его теперь пристроить.
   </div>
 
-  <div class="step">
-    <div class="step-num">1</div>
-    <div class="step-content">
-      <strong>Установите Python</strong>
-      <p>Скачайте Python с python.org (версия 3.10 или 3.11). При установке обязательно поставьте галочку Add Python to PATH.</p>
-    </div>
-  </div>
+  <h3>Вариант 1. Приложение, которое само возьмёт ваш файл</h3>
+  <p>Откройте <strong>Buzz</strong> или <strong>WhisperDesktop</strong>. В настройках / при первом запуске укажите путь к вашему .bin-файлу. Программа подхватит модель и начнёт распознавать речь.</p>
 
-  <div class="step">
-    <div class="step-num">2</div>
-    <div class="step-content">
-      <strong>Установите FFmpeg</strong>
-      <p>Эта программа нужна, чтобы Whisper понимал аудиофайлы.</p>
-      <p><em>Windows:</em> Скачайте ffmpeg-master-latest-win64-gpl.zip, распакуйте папку bin в C:\FFmpeg, добавьте C:\FFmpeg в переменную PATH.</p>
-      <p><em>Mac:</em> Откройте Терминал и введите: brew install ffmpeg</p>
-    </div>
-  </div>
+  <h3>Вариант 2. Скопировать в папку приложения</h3>
+  <p>У <strong>MacWhisper</strong> папка для моделей: <code>~/Library/Application Support/MacWhisper/Models/</code> — скопируйте туда ваш .bin.</p>
+  <p>У <strong>WhisperDesktop</strong> папка <code>models/</code> рядом с программой.</p>
+  <p>У <strong>Buzz</strong> можно указать путь в настройках (Settings → Models → Add custom model).</p>
 
-  <div class="step">
-    <div class="step-num">3</div>
-    <div class="step-content">
-      <strong>Установите Whisper</strong>
-      <p>Откройте командную строку (Win+R и cmd) или Терминал на Mac и введите:</p>
-      <pre>pip install -U openai-whisper</pre>
-      <p>Система сама скачает и установит Whisper. Это займёт около минуты.</p>
-    </div>
-  </div>
-
-  <div class="step">
-    <div class="step-num">4</div>
-    <div class="step-content">
-      <strong>Запустите транскрибацию</strong>
-      <p>Перейдите в папку с вашим аудиофайлом и введите:</p>
-      <pre>whisper zapis.mp3 --model base --language Russian</pre>
-      <p>Whisper обработает файл и сохранит расшифровку в трёх форматах: .txt (текст), .srt (субтитры), .vtt.</p>
-    </div>
-  </div>
+  <h3>Вариант 3. Купить приложение, которое всё делает само</h3>
+  <p><strong>MacWhisper</strong> (Mac), <strong>WhisperUI</strong> (Windows), <strong>SnailText</strong> (Mac + Windows) сами скачивают и настраивают модель. Просто нажмите кнопку «Download model».</p>
 </section>
 
 <section>
-  <h2>Как выбрать модель Whisper</h2>
-  <p>Чем больше модель — тем выше точность, но тем больше памяти требуется:</p>
-
+  <h2>Какие размеры моделей бывают (шпаргалка)</h2>
   <table>
     <thead>
       <tr>
         <th>Модель</th>
+        <th>Вес файла</th>
         <th>Память</th>
         <th>Качество</th>
-        <th>Для кого</th>
+        <th>Когда использовать</th>
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>tiny</td>
-        <td>~1 ГБ</td>
-        <td>Среднее</td>
-        <td>Попробовать в первый раз</td>
-      </tr>
-      <tr>
-        <td>base</td>
-        <td>~1 ГБ</td>
-        <td>Хорошее</td>
-        <td>Тесты и короткие записи</td>
-      </tr>
-      <tr>
-        <td>small</td>
-        <td>~2 ГБ</td>
-        <td>Очень хорошее</td>
-        <td>Повседневные задачи</td>
-      </tr>
-      <tr>
-        <td>medium</td>
-        <td>~5 ГБ</td>
-        <td>Отличное</td>
-        <td>Важные записи, интервью</td>
-      </tr>
-      <tr>
-        <td>large-v3</td>
-        <td>~10 ГБ</td>
-        <td>Максимальное</td>
-        <td>Самые ответственные задачи</td>
-      </tr>
-      <tr>
-        <td>turbo</td>
-        <td>~6 ГБ</td>
-        <td>Почти как large</td>
-        <td>Лучший баланс скорости и качества</td>
-      </tr>
+      <tr><td>tiny / tiny.en</td><td>~150 МБ</td><td>~1 ГБ</td><td>Среднее</td><td>Просто попробовать</td></tr>
+      <tr><td>base / base.en</td><td>~300 МБ</td><td>~1 ГБ</td><td>Хорошее</td><td>Короткие записи, тесты</td></tr>
+      <tr><td>small / small.en</td><td>~950 МБ</td><td>~2 ГБ</td><td>Очень хорошее</td><td>Повседневные задачи</td></tr>
+      <tr><td>medium / medium.en</td><td>~3.1 ГБ</td><td>~5 ГБ</td><td>Отличное</td><td>Интервью, важные встречи</td></tr>
+      <tr><td>large-v3</td><td>~6.2 ГБ</td><td>~10 ГБ</td><td>Максимальное</td><td>Самые ответственные задачи</td></tr>
+      <tr><td>turbo</td><td>~3.2 ГБ</td><td>~6 ГБ</td><td>Почти как large</td><td>Лучший баланс скорости и качества</td></tr>
     </tbody>
   </table>
-  <p><strong>Совет:</strong> Начните с base или turbo — этого хватит для большинства задач.</p>
+  <p><strong>Совет:</strong> Начинайте с <strong>turbo</strong> — он почти такой же точный, как large-v3, но в 8 раз быстрее. Если на ноутбуке мало памяти — берите <strong>small</strong>.</p>
 </section>
 
 <section>
-  <h2>Типичные проблемы</h2>
-
-  <div class="card amber">
-    <p><strong>pip install не работает — попробуйте:</strong></p>
-    <p>python -m pip install -U openai-whisper. Если не помогло — переустановите Python, убедитесь что стоит галочка Add Python to PATH.</p>
-  </div>
-
-  <div class="card amber">
-    <p><strong>ffmpeg is not recognized — FFmpeg не установлен:</strong></p>
-    <p>На Windows: скачайте ffmpeg, распакуйте в C:\FFmpeg, добавьте эту папку в системную переменную PATH.</p>
-  </div>
-
-  <div class="card amber">
-    <p><strong>Whisper работает медленно — используйте маленькую модель:</strong></p>
-    <p>Попробуйте base, small или turbo. Если есть видеокарта NVIDIA — установите PyTorch с CUDA. На Mac с M-чипом всё работает быстро из коробки.</p>
-  </div>
-
-  <div class="card amber">
-    <p><strong>Много ошибок в расшифровке — используйте модель побольше:</strong></p>
-    <p>Попробуйте medium или large-v3. Укажите язык через --language Russian. Если аудио шумное — готовые приложения (Способ 1) часто справляются лучше.</p>
-  </div>
-
-  <div class="card amber">
-    <p><strong>Команда whisper не найдена после установки:</strong></p>
-    <p>Перезапустите командную строку. Проверьте, что папка Python Scripts добавлена в PATH.</p>
-  </div>
+  <h2>Итого: что делать прямо сейчас</h2>
+  <ul>
+    <li><strong>На Mac:</strong> скачайте <a href="https://macwhisper.com" target="_blank">MacWhisper</a> (бесплатно) или <a href="https://snailtext.app" target="_blank">SnailText</a></li>
+    <li><strong>На Windows:</strong> скачайте <a href="https://github.com/Const-me/Whisper" target="_blank">WhisperDesktop</a> (бесплатно) или <a href="https://apps.microsoft.com/detail/9n3srnm2j6xx" target="_blank">WhisperUI</a></li>
+    <li><strong>Для диктовки голосом:</strong> <a href="https://openwhispr.com/ru/download" target="_blank">OpenWhispr</a> (бесплатно) или Wispr Flow</li>
+    <li><strong>Российские сервисы (без VPN):</strong> <a href="https://speech2text.ru" target="_blank">Speech2Text</a>, <a href="https://guruscribe.ru" target="_blank">GuruScribe</a></li>
+  </ul>
 </section>
 
 <section>
   <h2>Полезные ссылки</h2>
   <ul>
-    <li><a href="https://github.com/openai/whisper" target="_blank">Официальный репозиторий Whisper на GitHub</a></li>
-    <li><a href="https://habr.com/ru/articles/1024634" target="_blank">Сравнение приложений для диктовки на русском (Habr)</a></li>
-    <li><a href="https://vc.ru/ai/2904394-luchshie-ai-servisy-dlya-zametok-i-rasshifrovki-audio-v-tekst" target="_blank">Лучшие сервисы для расшифровки аудио (vc.ru)</a></li>
-    <li><a href="https://whispernotes.app/ru/blog/whisper-transcription" target="_blank">Полный гид по Whisper на русском</a></li>
-    <li><a href="https://deepgram.com/product/speech-to-text/russian" target="_blank">Deepgram — распознавание русского языка</a></li>
-    <li><a href="https://elevenlabs.io/speech-to-text" target="_blank">ElevenLabs Scribe — ещё один мощный STT</a></li>
+    <li><a href="https://habr.com/ru/articles/1024634" target="_blank">Сравнение приложений для диктовки на русском (Habr, 2026)</a></li>
+    <li><a href="https://vc.ru/ai/2904394-luchshie-ai-servisy-dlya-zametok-i-rasshifrovki-audio-v-tekst" target="_blank">Лучшие сервисы для расшифровки аудио (vc.ru, 2026)</a></li>
+    <li><a href="https://deepgram.com/product/speech-to-text/russian" target="_blank">Deepgram — транскрипция русского языка</a></li>
+    <li><a href="https://elevenlabs.io/speech-to-text" target="_blank">ElevenLabs Scribe — speech-to-text модель</a></li>
     <li><a href="https://speech2text.ru" target="_blank">Speech2Text — российский сервис транскрибации</a></li>
     <li><a href="https://any2text.ru" target="_blank">Any2Text — российский сервис, от 0.73 руб/мин</a></li>
   </ul>
@@ -387,8 +324,7 @@ footer {
 
 <footer>
   <div class="container">
-    <p>Материал подготовлен для участников курса «Искусственный интеллект для директоров FMCG»</p>
-    <p>Whisper — проект с открытым кодом от OpenAI (лицензия MIT)</p>
+    <p>© 2026 — Материал подготовлен для участников курса «Искусственный интеллект для директоров FMCG»</p>
   </div>
 </footer>
 
